@@ -1,0 +1,24 @@
+name: 'Contributions'
+description: 'Manage nrfconnect contributions'
+inputs:
+  input-str: 
+    description: 'Input string'
+    required: false
+    default: 'default-str'
+#outputs:
+#  result-str: 
+#    description: "Result string"
+#    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps: 
+    - run: echo "Action Start ${{ inputs.input-str }}"
+      shell: bash
+    - id: setup-python
+      run: pip3 install -r ${{ github.action_path }}/requirements.txt
+      shell: bash
+    - id: run-python
+      run: python3 ${{ github.action_path }}/action.py
+      shell: bash
+    - run: echo "Action End"
+      shell: bash
