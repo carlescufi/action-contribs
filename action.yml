@@ -16,7 +16,7 @@ runs:
       shell: bash
     - id: setup-python
       run: |
-        pip3 install setuptools
+        pip3 install setuptools wheel
         pip3 install -r ${{ github.action_path }}/requirements.txt
       shell: bash
     - id: run-python
