@@ -15,7 +15,9 @@ runs:
     - run: echo "Action Start ${{ inputs.input-str }}"
       shell: bash
     - id: setup-python
-      run: pip3 install -r ${{ github.action_path }}/requirements.txt
+      run: |
+        pip3 install setuptools
+        pip3 install -r ${{ github.action_path }}/requirements.txt
       shell: bash
     - id: run-python
       run: python3 ${{ github.action_path }}/action.py
