@@ -5,6 +5,21 @@ import os
 import sys
 
 def main():
+
+    # Retrieve main env vars
+    action = os.environ.get('GITHUB_ACTION', None)
+    workflow = os.environ.get('GITHUB_WORKFLOW', None)
+    repo = os.environ.get('GITHUB_REPOSITORY', None)
+
+    print(f'Running action f{action} from workflow f{workflow} in repository '
+           'f{repo}')
+    
+    evt_name = os.environ.get('GITHUB_EVENT_NAME', None)
+    evt_path = os.environ.get('GITHUB_EVENT_PATH', None)
+    workspace = os.environ.get('GITHUB_WORKSPACE', None)
+
+    print(f'Event f{evt_name} in f{evt_path} and workspace f{workspace}')
+ 
     token = os.environ.get('GITHUB_TOKEN', None)
     if not token:
         sys.exit('Github token not set in environment, please set the '
