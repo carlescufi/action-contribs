@@ -1,6 +1,8 @@
 name: 'Contributions'
 description: 'Manage nrfconnect contributions'
 inputs:
+  github-token:
+    description: 'The GITHUB_TOKEN secret'
   input-str: 
     description: 'Input string'
     required: false
@@ -22,5 +24,7 @@ runs:
     - id: run-python
       run: python3 ${{ github.action_path }}/action.py
       shell: bash
+      env:
+        GITHUB_TOKEN: inputs.github-token
     - run: echo "Action End"
       shell: bash
