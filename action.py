@@ -11,14 +11,13 @@ def main():
     workflow = os.environ.get('GITHUB_WORKFLOW', None)
     repo = os.environ.get('GITHUB_REPOSITORY', None)
 
-    print(f'Running action f{action} from workflow f{workflow} in repository '
-           'f{repo}')
+    print(f'Running action {action} from workflow {workflow} in {repo}')
     
     evt_name = os.environ.get('GITHUB_EVENT_NAME', None)
     evt_path = os.environ.get('GITHUB_EVENT_PATH', None)
     workspace = os.environ.get('GITHUB_WORKSPACE', None)
 
-    print(f'Event f{evt_name} in f{evt_path} and workspace f{workspace}')
+    print(f'Event {evt_name} in {evt_path} and workspace {workspace}')
  
     token = os.environ.get('GITHUB_TOKEN', None)
     if not token:
