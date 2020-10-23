@@ -12,9 +12,16 @@ def main():
 
     gh = Github(token)
     org = gh.get_organization('nrfconnect')
-    team = org.get_team_by_slug('ncs-code-owners')
-    for m in team.get_members():
-        print(m.login)
+    #team = org.get_team_by_slug('ncs-code-owners')
+    #for m in team.get_members():
+    #    print(m.login)
+    repo = gh.get_repo('nrfconnect/sdk-nrf')
+    i = 0
+    for p in repo.get_pulls():
+        print(f'{p.number}: {p.title}')
+        i = i+1
+        if i > 10:
+            break
 
     #args = parse_args(sys.argv[1:], gh)
 
