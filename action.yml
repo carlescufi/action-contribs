@@ -25,6 +25,6 @@ runs:
       run: python3 ${{ github.action_path }}/action.py
       shell: bash
       env:
-        GITHUB_TOKEN: inputs.github-token
+        GITHUB_TOKEN: ${{ inputs.github-token }}
     - run: echo "Action End"
       shell: bash
