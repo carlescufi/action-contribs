@@ -23,10 +23,9 @@ def main():
         if i > 10:
             break
 
+    print(sys.argv)
     #args = parse_args(sys.argv[1:], gh)
 
-    print('Output from Python')
-    print(f'token: {token}')
     sys.exit(0)
 
 if __name__ == '__main__':

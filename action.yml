@@ -22,7 +22,7 @@ runs:
         pip3 install -r ${{ github.action_path }}/requirements.txt
       shell: bash
     - id: run-python
-      run: python3 ${{ github.action_path }}/action.py
+      run: python3 ${{ github.action_path }}/action.py ${{ inputs.input-str }}
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
