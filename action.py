@@ -6,7 +6,7 @@ import json
 import os
 import sys
 
-NOTE = "\n\n*Note: This comment is automatically posted and updated by the "
+NOTE = "\n\n*Note: This comment is automatically posted and updated by the " \
        "Contribs GitHub Action.* "
  
 def gh_tuple_split(s):
