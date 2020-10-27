@@ -63,26 +63,29 @@ def main():
     pr = evt['pull_request']
     user = pr['user']
     login = user['login']
-    login = 'james'
 
-    print(f'User: {login} PR: {pr["title"]}')
+    print(f'user: {login} PR: {pr["title"]}')
 
     gh = Github(token)
+    tk_usr = gh.get_user()
 
     org, repo = gh_tuple_split(repo)
 
-    print(f'org: {org} repo: {repo}')
+    print(f'token user: {tk_usr.login} org: {org} repo: {repo}')
 
     gh_org = gh.get_organization(org)
     gh_usr = gh.get_user(login)
     member = gh_org.has_in_members(gh_usr)
-    nstr = '' if member else 'not'
+    nstr = '' if member else 'NOT '
 
     print(f'User {login} is {nstr}a member of org {org}')
 
-    team = gh_org.get_team_by_slug('ncs-code-owners')
-    for m in team.get_members():
-        print(m.login)
+    if member:
+        sys.exit(0)
+
+    # Post a comment if not already there
+
+
     #repo = gh.get_repo('nrfconnect/sdk-nrf')
     #i = 0
     #for p in repo.get_pulls():
