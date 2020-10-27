@@ -57,10 +57,12 @@ def main():
 
     org, repo = gh_tuple_split(repo)
 
+    print(f' org: {org} repo: {repo}')
+
     org = gh.get_organization(org)
-    #team = org.get_team_by_slug('ncs-code-owners')
-    #for m in team.get_members():
-    #    print(m.login)
+    team = org.get_team_by_slug('ncs-code-owners')
+    for m in team.get_members():
+        print(m.login)
     #repo = gh.get_repo('nrfconnect/sdk-nrf')
     #i = 0
     #for p in repo.get_pulls():
