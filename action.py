@@ -63,6 +63,7 @@ def main():
     pr = evt['pull_request']
     user = pr['user']
     login = user['login']
+    login = 'james'
 
     print(f'User: {login} PR: {pr["title"]}')
 
@@ -77,7 +78,7 @@ def main():
     member = gh_org.has_in_members(gh_usr)
     nstr = '' if member else 'not'
 
-    print(f'User f{login} is {nstr}a member of org {org}')
+    print(f'User {login} is {nstr}a member of org {org}')
 
     team = gh_org.get_team_by_slug('ncs-code-owners')
     for m in team.get_members():
