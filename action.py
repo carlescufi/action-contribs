@@ -73,7 +73,7 @@ def main():
 
     gh_org = gh.get_organization(org)
     gh_usr = gh.get_user(user['login'])
-    member = org.has_in_members(gh_usr)
+    member = gh_org.has_in_members(gh_usr)
     nstr = '' if member else 'not'
 
     print(f'User f{user} is f{nstr}a member of org {org}')
