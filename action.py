@@ -69,10 +69,10 @@ def main():
 
     org, repo = gh_tuple_split(repo)
 
-    print(f' org: {org} repo: {repo}')
+    print(f'org: {org} repo: {repo}')
 
     gh_org = gh.get_organization(org)
-    gh_usr = gh.get_user(user)
+    gh_usr = gh.get_user(user['login'])
     member = org.has_in_members(gh_usr)
     nstr = '' if member else 'not'
 
