@@ -62,8 +62,9 @@ def main():
 
     pr = evt['pull_request']
     user = pr['user']
+    login = user['login']
 
-    print(f'User: {user["login"]} PR: {pr["title"]}')
+    print(f'User: {login} PR: {pr["title"]}')
 
     gh = Github(token)
 
@@ -72,11 +73,11 @@ def main():
     print(f'org: {org} repo: {repo}')
 
     gh_org = gh.get_organization(org)
-    gh_usr = gh.get_user(user['login'])
+    gh_usr = gh.get_user(login)
     member = gh_org.has_in_members(gh_usr)
     nstr = '' if member else 'not'
 
-    print(f'User f{user} is f{nstr}a member of org {org}')
+    print(f'User f{login} is {nstr}a member of org {org}')
 
     team = gh_org.get_team_by_slug('ncs-code-owners')
     for m in team.get_members():
