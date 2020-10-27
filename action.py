@@ -58,12 +58,12 @@ def main():
         sys.exit(f'Invalid event {evt_name}')
 
     with open(evt_path, 'r') as f:
-        d = f.read()
+        evt = json.load(f)
 
-    evt = json.loads(d)
+    pr = evt['pull_request']
+    user = pr['user']
 
-    print('JSON event below:')
-    print(evt)
+    print('User: {user["login"]} PR: {pr["title"]}')
 
     gh = Github(token)
 
