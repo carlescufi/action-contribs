@@ -2,6 +2,7 @@
 
 import argparse
 from github import Github, GithubException
+import json
 import os
 import sys
 
@@ -52,6 +53,17 @@ def main():
     if not token:
         sys.exit('Github token not set in environment, please set the '
                  'GITHUB_TOKEN environment variable and retry.')
+
+    if not ("pull_request" in evt_name):
+        sys.exit(f'Invalid event {evt_name}')
+
+    with open(evt_path, 'r') as f:
+        d = f.read()
+
+    evt = json.loads(d)
+
+    print('JSON event below:')
+    print(evt)
 
     gh = Github(token)
 
