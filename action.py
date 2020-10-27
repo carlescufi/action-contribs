@@ -6,6 +6,9 @@ import json
 import os
 import sys
 
+NOTE = "\n\n*Note: This comment is automatically posted and updated by the "
+       "Contribs GitHub Action.* "
+ 
 def gh_tuple_split(s):
     sl = s.split('/')
     if len(sl) != 2:
@@ -39,9 +42,9 @@ def main():
     # Retrieve main env vars
     action = os.environ.get('GITHUB_ACTION', None)
     workflow = os.environ.get('GITHUB_WORKFLOW', None)
-    repo = os.environ.get('GITHUB_REPOSITORY', None)
+    org_repo = os.environ.get('GITHUB_REPOSITORY', None)
 
-    print(f'Running action {action} from workflow {workflow} in {repo}')
+    print(f'Running action {action} from workflow {workflow} in {org_repo}')
     
     evt_name = os.environ.get('GITHUB_EVENT_NAME', None)
     evt_path = os.environ.get('GITHUB_EVENT_PATH', None)
@@ -67,11 +70,10 @@ def main():
     print(f'user: {login} PR: {pr["title"]}')
 
     gh = Github(token)
-    tk_usr = gh.get_user()
 
-    org, repo = gh_tuple_split(repo)
+    org, repo = gh_tuple_split(org_repo)
 
-    print(f'token user: {tk_usr.login} org: {org} repo: {repo}')
+    print(f'org: {org} repo: {repo}')
 
     gh_org = gh.get_organization(org)
     gh_usr = gh.get_user(login)
@@ -80,19 +82,26 @@ def main():
 
     print(f'User {login} is {nstr}a member of org {org}')
 
-    if member:
+    #if member:
+    if not member:
         sys.exit(0)
 
-    # Post a comment if not already there
+    # Post a comment if not already posted
+    tk_usr = gh.get_user()
+    gh_repo = gh.get_repo(org_repo)
+    gh_pr = gh_repo.get_pull(int(pr['number']))
 
+    comment = None
+    for c in gh_pr.get_issue_comments():
+        if c.user.login == tk_usr.login and NOTE in c.body:
+            comment = c
+            break
 
-    #repo = gh.get_repo('nrfconnect/sdk-nrf')
-    #i = 0
-    #for p in repo.get_pulls():
-    #    print(f'{p.number}: {p.title}')
-    #    i = i+1
-    #    if i > 10:
-    #        break
+    message = args.message + NOTE
+    if not comment:
+        print('Creating comment')
+        gh_pr.create_issue_comment(message)
+
     sys.exit(0)
 
 if __name__ == '__main__':
