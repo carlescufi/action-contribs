@@ -71,8 +71,14 @@ def main():
 
     print(f' org: {org} repo: {repo}')
 
-    org = gh.get_organization(org)
-    team = org.get_team_by_slug('ncs-code-owners')
+    gh_org = gh.get_organization(org)
+    gh_usr = gh.get_user(user)
+    member = org.has_in_members(gh_usr)
+    nstr = '' if member else 'not'
+
+    print(f'User f{user} is f{nstr}a member of org {org}')
+
+    team = gh_org.get_team_by_slug('ncs-code-owners')
     for m in team.get_members():
         print(m.login)
     #repo = gh.get_repo('nrfconnect/sdk-nrf')
