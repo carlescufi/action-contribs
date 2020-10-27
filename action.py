@@ -63,7 +63,7 @@ def main():
     pr = evt['pull_request']
     user = pr['user']
 
-    print('User: {user["login"]} PR: {pr["title"]}')
+    print(f'User: {user["login"]} PR: {pr["title"]}')
 
     gh = Github(token)
 
