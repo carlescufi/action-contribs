@@ -26,7 +26,7 @@ runs:
     - id: run-python
       run: |
            python3 ${{ github.action_path }}/action.py -c "${{ inputs.command }}" \
-           -m "${{ inputs.message }}" -l "${{ inputs.labels }}"
+           -m "${{ inputs.messages }}" -l "${{ inputs.labels }}"
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
