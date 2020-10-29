@@ -111,7 +111,7 @@ def main():
         try:
             for l in labels:
                 gh_pr.remove_from_labels(l)
-        except GitHubException as e:
+        except GithubException as e:
             print('Unable to remove labels')
 
     sys.exit(0)
