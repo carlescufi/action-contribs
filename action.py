@@ -108,8 +108,11 @@ def main():
             gh_pr.add_to_labels(l)
     else:
         print('Removing labels')
-        for l in labels:
-            gh_pr.remove_from_labels(l)
+        try:
+            for l in labels:
+                gh_pr.remove_from_labels(l)
+        except GitHubException as e:
+            print('Unable to remove labels')
 
     sys.exit(0)
 
