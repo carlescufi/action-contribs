@@ -102,7 +102,7 @@ def main():
         print('Updating comment')
         comment.edit(messages[1] + NOTE)
 
-    if member: #not member:
+    if not member:
         print('Adding labels')
         for l in labels:
             gh_pr.add_to_labels(l)
