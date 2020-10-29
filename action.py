@@ -104,7 +104,8 @@ def main():
 
     if member: #not member:
         print('Adding labels')
-        gh_pr.add_to_labels(labels)
+        for l in labels:
+            gh_pr.add_to_labels(l)
     else:
         print('Removing labels')
         for l in labels:
