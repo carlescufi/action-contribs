@@ -26,9 +26,9 @@ def main():
                         required=True,
                         help='Command to execute.')
 
-    parser.add_argument('-m', '--message', action='store',
+    parser.add_argument('-m', '--messages', action='store',
                         required=False,
-                        help='Message to post.')
+                        help='Messages to post.')
 
     parser.add_argument('-l', '--labels', action='store',
                         required=False,
@@ -38,6 +38,8 @@ def main():
 
     args = parser.parse_args()
 
+    messages = [x.strip() for x in args.messages.split('|')]
+    labels = [x.strip() for x in args.labels.split(',')]
 
     # Retrieve main env vars
     action = os.environ.get('GITHUB_ACTION', None)
@@ -82,11 +84,6 @@ def main():
 
     print(f'User {login} is {nstr}a member of org {org}')
 
-    #if member:
-    if not member:
-        sys.exit(0)
-
-    # Post a comment if not already posted
     tk_usr = gh.get_user()
     gh_repo = gh.get_repo(org_repo)
     gh_pr = gh_repo.get_pull(int(pr['number']))
@@ -97,10 +94,21 @@ def main():
             comment = c
             break
 
-    message = args.message + NOTE
-    if not comment:
+    message = messages[0] + NOTE
+    if not comment and not member:
         print('Creating comment')
         gh_pr.create_issue_comment(message)
+    elif comment and member and len(messages) > 1:
+        print('Updating comment')
+        comment.edit(messages[1] + NOTE)
+
+    if not member:
+        print('Adding labels')
+        gh_pr.add_to_labels(labels)
+    else:
+        print('Removing labels')
+        for l in labels:
+            gh_pr.remove_from_labels(l)
 
     sys.exit(0)
 
