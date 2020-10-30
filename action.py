@@ -95,7 +95,7 @@ def main():
             break
 
     message = messages[0] + NOTE
-    if not comment: # and not member:
+    if not comment and not member:
         print('Creating comment')
         gh_pr.create_issue_comment(message)
     elif comment and member and len(messages) > 1:
