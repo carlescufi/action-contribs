@@ -95,14 +95,14 @@ def main():
             break
 
     message = messages[0] + NOTE
-    if not comment and not member:
+    if not comment: # and not member:
         print('Creating comment')
         gh_pr.create_issue_comment(message)
     elif comment and member and len(messages) > 1:
         print('Updating comment')
         comment.edit(messages[1] + NOTE)
 
-    if not member:
+    if member: #not member:
         print('Adding labels')
         for l in labels:
             gh_pr.add_to_labels(l)
